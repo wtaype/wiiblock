@@ -327,15 +327,13 @@ export const wiPath = {
   limpiar(ruta) {
     const base = import.meta?.env?.BASE_URL || '/';
     const guar = sessionStorage.ghPath;
-    if (guar) { sessionStorage.removeItem('ghPath'); return guar.replace(/^\/wiiblock(\/v\d+)?/, '') || '/'; }
+    if (guar) { sessionStorage.removeItem('ghPath'); return guar.replace(/^\/wiiprime(\/v\d+)?/, '') || '/'; }
     let r = base !== '/' && ruta?.startsWith(base) ? ruta.slice(base.length - 1) || '/' : ruta || '/';
     if (r !== '/' && !r.startsWith('/')) r = '/' + r;
     return r;
   },
   poner(ruta, titulo = '') {
-    const base = import.meta?.env?.BASE_URL || '/';
-    const full = base !== '/' ? (base.replace(/\/$/, '') + '/' + (ruta.startsWith('/') ? ruta.slice(1) : ruta)) : ruta;
-    history.pushState({ ruta }, titulo, full);
+    history.pushState({ ruta }, titulo, ruta);
     titulo && (document.title = titulo);
   },
   params: () => Object.fromEntries(new URLSearchParams(location.search)),
