@@ -1,4 +1,4 @@
-name: 🚀 Deploy retodelmes
+name: 🚀 Deploy wiiblock
 
 on:
   push:
@@ -16,7 +16,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       IS_TAG: ${{ github.ref_type == 'tag' }}
-      BASE_URL: ${{ github.ref_type == 'tag' && format('/retodelmes/{0}/', github.ref_name) || '/retodelmes/' }}
+      BASE_URL: ${{ github.ref_type == 'tag' && format('/wiiblock/{0}/', github.ref_name) || '/wiiblock/' }}
       DEST_DIR: ${{ github.ref_type == 'tag' && github.ref_name || '.' }}
       
     steps:
@@ -71,5 +71,5 @@ jobs:
 
       - run: |
           echo "✅ Deploy completado!"
-          echo "🔥 Firebase: https://retodelmes.web.app (solo main)"
-          echo "🐙 GitHub: https://wtaype.me/retodelmes/${{ env.DEST_DIR }}"
+          echo "🔥 Firebase: https://wiiblock.web.app (solo main)"
+          echo "🐙 GitHub: https://wtaype.me/wiiblock/${{ env.DEST_DIR }}"

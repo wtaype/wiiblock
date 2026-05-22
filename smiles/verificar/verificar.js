@@ -289,7 +289,7 @@ async function _initSetup(wi) {
 
   _secret = generateSecret();
 
-  const issuer  = 'RetoDelMes';
+  const issuer  = 'WiiBlock';
   const sm       = getls('wiSmile');
   const account  = encodeURIComponent(sm?.usuario || wi.usuario);
   const otpauth  = `otpauth://totp/${issuer}:${account}?secret=${_secret}&issuer=${issuer}&algorithm=SHA1&digits=6&period=30`;
