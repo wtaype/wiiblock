@@ -1,0 +1,1 @@
+var e=`ChatWil`,t=2026,n=`@wilder.taype`,r=`v11`;export{e as app,n as autor,t as lanzamiento,r as version};
