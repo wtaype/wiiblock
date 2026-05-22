@@ -1,0 +1,224 @@
+.fcm_page {
+  display: flex;
+  flex-direction: column;
+  gap: 3vh;
+  animation: fcmFade .35s cubic-bezier(.2,.8,.2,1);
+}
+@keyframes fcmFade {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.fcm_hero,
+.fcm_card {
+  background: var(--wb);
+  border: 1px solid var(--brd);
+  border-radius: 2vh;
+  box-shadow: 0 1vh 3vh var(--bg5);
+}
+
+.fcm_hero {
+  display: flex;
+  align-items: center;
+  gap: 2.5vh;
+  padding: 4vh;
+  overflow: hidden;
+  position: relative;
+}
+.fcm_hero::after {
+  content: '';
+  position: absolute;
+  inset: auto -8vh -12vh auto;
+  width: 28vh;
+  height: 28vh;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(250,204,0,.22), transparent 70%);
+  pointer-events: none;
+}
+.fcm_hero_icon {
+  width: 8vh;
+  height: 8vh;
+  border-radius: 2vh;
+  display: grid;
+  place-items: center;
+  background: var(--bg4);
+  color: var(--mbg);
+  font-size: 3.2vh;
+  flex-shrink: 0;
+}
+.fcm_badge {
+  display: inline-flex;
+  align-items: center;
+  gap: .8vh;
+  padding: .5vh 1.2vh;
+  border-radius: 999px;
+  background: var(--bg4);
+  color: var(--tx3);
+  font-size: var(--fz_s4);
+  font-weight: 800;
+  margin-bottom: 1vh;
+}
+.fcm_hero h1,
+.fcm_head h2 {
+  margin: 0;
+  color: var(--tx);
+  font-family: var(--ff_P);
+  font-weight: 900;
+}
+.fcm_hero h1 { font-size: var(--fz_l2); }
+.fcm_hero p,
+.fcm_head p {
+  margin: .6vh 0 0;
+  color: var(--tx3);
+  font-weight: 600;
+}
+
+.fcm_grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(320px, .9fr);
+  gap: 3vh;
+}
+.fcm_card {
+  padding: 3vh;
+  display: flex;
+  flex-direction: column;
+  gap: 2vh;
+}
+.fcm_head {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.5vh;
+}
+.fcm_head > i {
+  width: 4.8vh;
+  height: 4.8vh;
+  border-radius: 1.4vh;
+  display: grid;
+  place-items: center;
+  background: var(--bg4);
+  color: var(--tx3);
+  flex-shrink: 0;
+}
+.fcm_field {
+  display: flex;
+  flex-direction: column;
+  gap: .8vh;
+}
+.fcm_field label {
+  color: var(--tx2);
+  font-size: var(--fz_s4);
+  font-weight: 900;
+}
+.fcm_input {
+  width: 100%;
+  border: 1px solid var(--brd);
+  background: var(--inp);
+  color: var(--tx);
+  border-radius: 1.2vh;
+  padding: 1.4vh 1.6vh;
+  font: inherit;
+  font-weight: 700;
+  outline: none;
+}
+textarea.fcm_input {
+  min-height: 13vh;
+  resize: vertical;
+  line-height: 1.45;
+}
+.fcm_input:focus {
+  border-color: var(--mbg);
+  box-shadow: 0 0 0 .35vh var(--bg5);
+}
+.fcm_cols {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 2vh;
+}
+.fcm_actions {
+  display: flex;
+  gap: 1.4vh;
+  flex-wrap: wrap;
+}
+.fcm_btn {
+  border: 1px solid var(--brd);
+  background: var(--bg7);
+  color: var(--tx);
+  border-radius: 1.2vh;
+  padding: 1.4vh 2vh;
+  font-weight: 900;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1vh;
+  transition: .2s ease;
+}
+.fcm_btn:hover {
+  transform: translateY(-.2vh);
+  border-color: var(--mbg);
+}
+.fcm_btn.primary {
+  background: var(--mbg);
+  border-color: var(--mbg);
+  color: var(--txa);
+}
+.fcm_btn.wide { align-self: stretch; }
+
+.fcm_console_box {
+  display: flex;
+  flex-direction: column;
+  gap: 1vh;
+}
+.fcm_console_box input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+.fcm_console_box div {
+  display: grid;
+  grid-template-columns: 110px minmax(0, 1fr);
+  gap: 1vh;
+  padding: 1.2vh;
+  border-radius: 1vh;
+  background: var(--bg4);
+  color: var(--tx2);
+  font-weight: 700;
+}
+.fcm_console_box strong {
+  color: var(--tx);
+}
+.fcm_console_box span {
+  overflow-wrap: anywhere;
+}
+.fcm_pre {
+  margin: 0;
+  padding: 2vh;
+  border-radius: 1.2vh;
+  border: 1px solid var(--brd);
+  background: #10100a;
+  color: #fff8d1;
+  min-height: 26vh;
+  overflow: auto;
+  line-height: 1.5;
+  font-size: 13px;
+}
+.fcm_empty {
+  background: var(--wb);
+  border: 1px solid var(--brd);
+  border-radius: 2vh;
+  padding: 5vh;
+  text-align: center;
+  color: var(--tx3);
+  font-weight: 800;
+}
+
+@media (max-width: 900px) {
+  .fcm_grid,
+  .fcm_cols {
+    grid-template-columns: 1fr;
+  }
+  .fcm_hero {
+    align-items: flex-start;
+    padding: 3vh;
+  }
+}

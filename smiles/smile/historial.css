@@ -1,0 +1,622 @@
+/* ==========================================================================
+   HISTORIAL.CSS – Premium Table Redesign (v3)
+   Inspired by reference design: bold header, vivid badges, clean pagination
+   ========================================================================== */
+
+/* ── VISTA GENERAL ── */
+.smw_hist_view {
+  width: 100%;
+  padding: 2vh 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2.5vh;
+  animation: smw_hist_fade 0.5s cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+
+@keyframes smw_hist_fade {
+  from { opacity: 0; transform: translateY(15px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── HEADER CARD ── */
+.smw_hist_header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2vh;
+  background: var(--wb);
+  border: 1px solid var(--brd);
+  border-radius: 2.5vh;
+  padding: 2.8vh 3.5vw;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 10px 35px rgba(0,0,0,0.02);
+}
+
+/* Loader stripe on top */
+.smw_hist_header::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: auto;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(90deg, var(--Cielo, #0EBEFF), var(--mco));
+  z-index: 10;
+  transition: all 0.3s ease;
+}
+
+.smw_hist_header.smw_loading::before {
+  background: linear-gradient(90deg, var(--Cielo, #0EBEFF), var(--mco));
+  animation: smw_loader_width 1.5s ease-in-out infinite;
+  z-index: 100;
+}
+
+@keyframes smw_loader_width {
+  0% { width: 0%; left: 0; right: auto; }
+  50% { width: 100%; left: 0; right: auto; }
+  50.1% { left: auto; right: 0; }
+  100% { width: 0%; left: auto; right: 0; }
+}
+
+.smw_cielo_glow {
+  color: var(--Cielo, #0EBEFF);
+  filter: drop-shadow(0 0 10px color-mix(in srgb, var(--Cielo, #0EBEFF) 40%, transparent));
+}
+
+.smw_hist_title_row h1 {
+  font-size: var(--fz_l1);
+  font-weight: 800;
+  color: var(--tx);
+  letter-spacing: -1px;
+}
+.smw_hist_subtitle {
+  font-size: var(--fz_s2);
+  color: var(--tx3);
+  font-weight: 600;
+  margin-top: 0.5vh;
+}
+
+/* ── CONTROLES DE HEADER: solo selector de mes ── */
+.smw_hist_controls {
+  display: flex;
+  align-items: center;
+  gap: 1.5vh;
+}
+
+/* Selector de Mes – cápsula con flechas */
+.smw_month_selector_wrap {
+  display: flex;
+  align-items: center;
+  background: var(--bg5);
+  border: 1.5px solid var(--brd);
+  border-radius: 50px;
+  padding: 0.5vh 0.8vh;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+  gap: 0.2vh;
+  position: relative;
+}
+.smw_month_nav_btn {
+  background: transparent;
+  border: none;
+  color: var(--tx2);
+  width: 4vh;
+  height: 4vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border-radius: 50%;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  font-size: 0.85em;
+}
+.smw_month_nav_btn:hover {
+  background: var(--wb);
+  color: var(--mco);
+  box-shadow: 0 3px 10px rgba(0,0,0,0.06);
+}
+.smw_month_display {
+  display: flex;
+  align-items: center;
+  gap: 1vh;
+  padding: 0 2vh;
+  font-weight: 750;
+  color: var(--tx);
+  font-size: var(--fz_s2);
+  white-space: nowrap;
+}
+.smw_month_display i {
+  color: var(--Cielo, #0EBEFF);
+  filter: drop-shadow(0 0 6px color-mix(in srgb, var(--Cielo, #0EBEFF) 40%, transparent));
+}
+
+/* Hidden select para cambio de mes desde la cápsula */
+.smw_month_hidden_select_header {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none; /* el cambio se maneja via los botones de flecha */
+  width: 0;
+  height: 0;
+}
+
+/* ── FILTROS CARD ── */
+.smw_hist_filters_card {
+  background: var(--wb);
+  border: 1px solid var(--brd);
+  border-radius: 2.2vh;
+  padding: 2.5vh 3vh;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.02);
+}
+
+.smw_filter_grid {
+  display: grid;
+  grid-template-columns: 2fr 1.5fr 1.2fr 1fr;
+  gap: 2.5vh;
+  align-items: flex-end;
+}
+
+.smw_filter_field {
+  display: flex;
+  flex-direction: column;
+  gap: 1vh;
+}
+.smw_filter_field label {
+  font-size: var(--fz_s2);
+  color: var(--tx3);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  display: flex;
+  align-items: center;
+  gap: 0.6vh;
+}
+.smw_filter_field label i {
+  color: var(--mco);
+}
+
+.smw_input, .smw_select {
+  width: 100%;
+  height: 5.5vh;
+  padding: 0 1.8vh;
+  background: var(--bg5);
+  border: 1.5px solid var(--brd);
+  border-radius: 1.4vh;
+  color: var(--tx);
+  font-weight: 600;
+  font-size: var(--fz_s2);
+  outline: none;
+  transition: all 0.25s;
+}
+.smw_input:focus, .smw_select:focus {
+  border-color: var(--mco);
+  background: var(--wb);
+  box-shadow: 0 0 0 3.5px color-mix(in srgb, var(--mco) 12%, transparent);
+}
+
+/* Toggle Hoy */
+.smw_btn_toggle {
+  height: 5.5vh;
+  background: var(--bg5);
+  border: 1.5px solid var(--brd);
+  border-radius: 1.4vh;
+  color: var(--tx3);
+  font-weight: 700;
+  font-size: var(--fz_s2);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.2vh;
+  transition: all 0.25s;
+}
+.smw_btn_toggle.active {
+  background: color-mix(in srgb, var(--Cielo, #0EBEFF) 12%, transparent);
+  border-color: var(--Cielo, #0EBEFF);
+  color: var(--Cielo, #0EBEFF);
+}
+.smw_btn_toggle:hover {
+  border-color: var(--tx3);
+}
+
+/* ══════════════════════════════════════════════════════════════════════════
+   TABLA PREMIUM – Diseño inspirado en referencia con header de gradiente
+   ══════════════════════════════════════════════════════════════════════════ */
+
+/* Tarjeta contenedora – sin padding top para flush header */
+.smw_hist_table_card {
+  background: var(--wb);
+  border: 1px solid var(--brd);
+  border-radius: 2.2vh;
+  padding: 0;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.04);
+  overflow: hidden;
+}
+
+/* Título dentro de la tabla (barra rosa de referencia) */
+.smw_hist_table_title {
+  background: linear-gradient(135deg, var(--mco) 0%, color-mix(in srgb, var(--mco) 75%, #c00) 100%);
+  color: #fff;
+  padding: 2vh 3vh;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: var(--fz_m2);
+  font-weight: 800;
+  letter-spacing: -0.3px;
+}
+.smw_hist_table_title span {
+  font-weight: 700;
+  font-size: var(--fz_s2);
+  background: rgba(255,255,255,0.15);
+  padding: 0.4vh 1.2vh;
+  border-radius: 50px;
+  backdrop-filter: blur(8px);
+  word-spacing: 2px;
+}
+
+/* Wrapper responsive */
+.smw_table_responsive {
+  width: 100%;
+  overflow-x: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--mco) var(--bg5);
+}
+.smw_table_responsive::-webkit-scrollbar { height: 6px; }
+.smw_table_responsive::-webkit-scrollbar-track { background: var(--bg5); }
+.smw_table_responsive::-webkit-scrollbar-thumb {
+  background: var(--mco);
+  border-radius: 10px;
+}
+
+/* ── LA TABLA ── */
+.smw_hist_table {
+  width: 100%;
+  min-width: 960px;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: var(--fz_s2);
+}
+
+/* Cabeceras – fondo fucsia/Dulce referencia */
+.smw_hist_table thead tr {
+  background: linear-gradient(135deg, var(--mco) 0%, color-mix(in srgb, var(--mco) 80%, #c00) 100%);
+}
+.smw_hist_table th {
+  color: #fff;
+  font-weight: 700;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  padding: 1.6vh 1.4vh;
+  border-bottom: none;
+  white-space: nowrap;
+  text-align: center;
+}
+.smw_hist_table th i {
+  color: rgba(255,255,255,0.85);
+  margin-right: 0.5vh;
+  font-size: 0.9em;
+}
+
+/* Filas de datos */
+.smw_hist_table td {
+  padding: 1.4vh 1.4vh;
+  border-bottom: 1px solid var(--brd);
+  color: var(--tx);
+  vertical-align: middle;
+  text-align: center;
+}
+
+.smw_hist_table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* Hover Row */
+.smw_hist_table tbody tr {
+  transition: background 0.18s ease;
+}
+.smw_hist_table tbody tr:hover {
+  background: color-mix(in srgb, var(--mco) 4%, var(--bg5));
+}
+
+/* Alternado de filas muy sutil */
+.smw_hist_table tbody tr:nth-child(even) {
+  background: color-mix(in srgb, var(--bg5) 60%, var(--wb));
+}
+.smw_hist_table tbody tr:nth-child(even):hover {
+  background: color-mix(in srgb, var(--mco) 4%, var(--bg5));
+}
+
+/* Animación de entrada de fila */
+.smw_row_anim {
+  animation: smw_row_in 0.35s both;
+}
+@keyframes smw_row_in {
+  from { opacity: 0; transform: translateY(5px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── CELDAS ESPECIALIZADAS ── */
+
+/* Fecha */
+.smw_date_span {
+  font-weight: 700;
+  color: var(--tx2);
+  white-space: nowrap;
+  font-size: 12px;
+}
+
+/* Vendedor */
+.smw_vendedor_cell {
+  display: inline-flex;
+  align-items: center;
+  gap: 1vh;
+  justify-content: center;
+}
+.smw_avatar_table {
+  width: 4vh;
+  height: 4vh;
+  min-width: 28px;
+  min-height: 28px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--brd);
+}
+.smw_vendedor_name {
+  font-weight: 700;
+  color: var(--tx);
+  font-size: 12px;
+}
+
+/* Tour Badge – azul referencia */
+.smw_tour_pill {
+  display: inline-block;
+  padding: 0.7vh 1.4vh;
+  background: #2563EB;
+  border-radius: 0.7vh;
+  font-weight: 800;
+  font-size: 11px;
+  color: #fff;
+  white-space: nowrap;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  box-shadow: 0 2px 8px rgba(37,99,235,0.25);
+}
+
+/* PAX Badge – color acento referencia */
+.smw_pax_pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5vh;
+  padding: 0.55vh 1.2vh;
+  background: var(--mco);
+  border-radius: 50px;
+  font-weight: 800;
+  font-size: 12px;
+  color: #fff;
+  box-shadow: 0 2px 8px color-mix(in srgb, var(--mco) 30%, transparent);
+}
+
+/* Cliente celda */
+.smw_cliente_cell { text-align: center; }
+.smw_cliente_info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.3vh;
+}
+.smw_cliente_name {
+  font-weight: 800;
+  color: var(--tx);
+  font-size: 12px;
+  letter-spacing: -0.1px;
+}
+.smw_room_pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4vh;
+  padding: 0.2vh 0.8vh;
+  background: var(--bg5);
+  border: 1px solid var(--brd);
+  color: var(--tx3);
+  border-radius: 50px;
+  font-size: 10px;
+  font-weight: 800;
+}
+
+/* Precios */
+.smw_price_span {
+  font-weight: 800;
+  color: var(--mco);
+  font-size: var(--fz_m2);
+}
+.smw_unit_price {
+  font-weight: 700;
+  color: var(--tx2);
+  font-size: 12px;
+}
+.smw_profit_span {
+  font-weight: 800;
+  color: var(--Paz, #29C72E);
+  font-size: 12px;
+}
+
+/* Estado Pago – badges según referencia */
+.smw_status_badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7vh;
+  padding: 0.65vh 1.5vh;
+  border-radius: 50px;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.4px;
+  white-space: nowrap;
+}
+.smw_status_badge.paid {
+  background: #16A34A;
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(22,163,74,0.25);
+}
+.smw_status_badge.pending {
+  background: #F97316;
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(249,115,22,0.25);
+}
+.smw_status_dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.75);
+  display: inline-block;
+  animation: smw_dot_pulse 2s ease-in-out infinite;
+}
+@keyframes smw_dot_pulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.4; }
+}
+
+/* Ganancia */
+.smw_reg_label {
+  font-size: var(--fz_s2);
+  color: var(--tx3);
+  font-weight: 600;
+}
+
+/* Puntos – dorado según referencia */
+.smw_points_box {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4vh;
+  padding: 0.55vh 1.4vh;
+  background: #F59E0B;
+  border-radius: 50px;
+  color: #fff;
+  font-weight: 900;
+  font-size: 12px;
+  box-shadow: 0 2px 8px rgba(245,158,11,0.3);
+  white-space: nowrap;
+}
+.smw_points_box i {
+  font-size: 10px;
+  color: rgba(255,255,255,0.9);
+}
+
+/* Acciones – botón azul (ojo) referencia */
+.smw_actions_cell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.7vh;
+}
+.smw_hist_btn {
+  width: 4vh;
+  height: 4vh;
+  min-width: 30px;
+  min-height: 30px;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85em;
+  transition: all 0.2s ease;
+  color: #fff;
+}
+.smw_hbtn_view   { background: #3B82F6; box-shadow: 0 2px 8px rgba(59,130,246,0.3); }
+.smw_hbtn_edit   { background: #10B981; box-shadow: 0 2px 8px rgba(16,185,129,0.3); }
+.smw_hbtn_delete { background: #EF4444; box-shadow: 0 2px 8px rgba(239,68,68,0.3); }
+.smw_hist_btn:hover { transform: translateY(-2px) scale(1.1); filter: brightness(1.1); }
+
+/* ── CELDAS VACÍAS / ERROR ── */
+.smw_loading_cell, .smw_empty_cell, .smw_error_cell {
+  text-align: center !important;
+  padding: 8vh 0 !important;
+  color: var(--tx3);
+}
+.smw_empty_cell i {
+  font-size: var(--fz_l2);
+  opacity: 0.12;
+  display: block;
+  margin-bottom: 2vh;
+}
+.smw_empty_cell strong {
+  display: block;
+  font-size: var(--fz_m2);
+  color: var(--tx);
+  margin-bottom: 1vh;
+}
+
+/* ── PAGINACIÓN – estilo referencia ── */
+.smw_pagination_container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2.5vh;
+  border-top: 1px solid var(--brd);
+  background: var(--bg5);
+}
+.smw_pagination {
+  display: flex;
+  align-items: center;
+  gap: 0.8vh;
+}
+.smw_page_btn {
+  width: 4.8vh;
+  height: 4.8vh;
+  min-width: 36px;
+  min-height: 36px;
+  border-radius: 1.2vh;
+  border: 1.5px solid var(--brd);
+  background: var(--wb);
+  color: var(--tx2);
+  font-weight: 700;
+  font-size: var(--fz_s2);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+}
+.smw_page_btn.active {
+  background: var(--mco);
+  border-color: var(--mco);
+  color: #fff;
+  box-shadow: 0 4px 14px color-mix(in srgb, var(--mco) 35%, transparent);
+}
+.smw_page_btn:hover:not(.active) {
+  border-color: var(--mco);
+  color: var(--mco);
+  background: color-mix(in srgb, var(--mco) 8%, var(--wb));
+  transform: translateY(-1px);
+}
+
+/* ── SKELETON ── */
+.smw_sk_row td {
+  padding: 1.4vh 1.4vh;
+  vertical-align: middle;
+}
+.smw_sk_el {
+  display: inline-block;
+  background: linear-gradient(90deg, var(--bg3) 25%, var(--bg5) 50%, var(--bg3) 75%);
+  background-size: 200% 100%;
+  animation: smw_shimmer 1.4s infinite linear;
+  vertical-align: middle;
+  border-radius: 6px;
+}
+.smw_sk_circle { border-radius: 50%; border: 1px solid var(--brd); }
+@keyframes smw_shimmer {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* ── RESPONSIVIDAD ── */
+@media (max-width: 1024px) {
+  .smw_filter_grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 600px) {
+  .smw_hist_header { flex-direction: column; align-items: flex-start; }
+  .smw_filter_grid { grid-template-columns: 1fr; }
+}

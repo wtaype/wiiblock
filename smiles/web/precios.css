@@ -1,0 +1,126 @@
+/* =====================================================
+   PRECIOS.CSS — Planes de Linkwii
+===================================================== */
+.pr_wrap { max-width: 1600px; margin: 0 auto; padding: 8vh 2vw 12vh; font-family: var(--ff_P); }
+
+.pr_hero { text-align: center; margin-bottom: 6vh; }
+.pr_badge {
+  display: inline-flex; align-items: center; gap: 1vh; padding: 0.8vh 2vh;
+  background: color-mix(in srgb, var(--mco) 15%, transparent); color: var(--mco);
+  border-radius: 50px; font-weight: 700; margin-bottom: 2vh; font-size: var(--fz_m2);
+}
+.pr_title { font-size: clamp(2.5rem, 6vw, 4.5rem); font-weight: 900; color: var(--tx); margin-bottom: 2vh; line-height: 1.1; letter-spacing: -0.02em; }
+.pr_grad { background: linear-gradient(135deg, var(--mco), #7000FF); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.pr_desc { font-size: var(--fz_m4); color: var(--tx2); max-width: 700px; margin: 0 auto; line-height: 1.7; }
+
+/* Grid de 5 columnas en 1 sola fila */
+.pr_grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  align-items: stretch;
+  gap: .5vh 1vh;
+  margin-top: 6vh;
+}
+
+.pr_card {
+  width: 100%;
+  background: var(--wb);
+  border: 2px solid transparent;
+  border-radius: 36px;
+  padding: 4.5vh 2.5vh;
+  box-shadow: 0 16px 40px rgba(0,0,0,.04);
+  transition: transform var(--tr_m), border-color var(--tr_m), box-shadow var(--tr_m);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.pr_card:hover {
+  transform: translateY(-8px);
+  border-color: var(--cc);
+  box-shadow: 0 24px 60px color-mix(in srgb, var(--cc) 15%, transparent);
+}
+
+/* Plan Destacado (Pro Max) */
+.pr_card.destacado {
+  background: linear-gradient(145deg, var(--wb), color-mix(in srgb, var(--cc) 5%, var(--wb)));
+  border-color: var(--cc);
+  box-shadow: 0 24px 60px color-mix(in srgb, var(--cc) 15%, transparent);
+  transform: scale(1.04);
+  z-index: 2;
+}
+.pr_card.destacado:hover {
+  transform: scale(1.06) translateY(-5px);
+  box-shadow: 0 32px 80px color-mix(in srgb, var(--cc) 25%, transparent);
+}
+.pr_popular {
+  position: absolute; top: -16px; left: 50%; transform: translateX(-50%);
+  background: var(--cc); color: #fff; font-size: var(--fz_s4); font-weight: 800;
+  padding: .8vh 2.5vh; border-radius: 50px; text-transform: uppercase; letter-spacing: 1px;
+  box-shadow: 0 8px 16px color-mix(in srgb, var(--cc) 40%, transparent);
+  white-space: nowrap;
+}
+
+/* Cabecera del Card */
+.pr_head { border-bottom: 2px dashed var(--bg4); padding-bottom: 3vh; margin-bottom: 3vh; }
+.pr_name { font-size: var(--fz_m4); font-weight: 800; color: var(--cc); margin-bottom: 1.5vh; display: flex; align-items: center; gap: 1vh; }
+.pr_desc_card { font-size: var(--fz_s3); color: var(--tx2); line-height: 1.5; min-height: 6vh; }
+
+/* Precios */
+.pr_price_wrap { display: flex; align-items: flex-end; gap: .5vh; margin-top: 2vh; }
+.pr_price { font-size: 3.8rem; font-weight: 900; color: var(--tx1); line-height: 1; letter-spacing: -1px; }
+.pr_price_sim { font-size: 1.8rem; font-weight: 700; color: var(--tx3); margin-bottom: .5vh; }
+.pr_price_per { font-size: var(--fz_s3); color: var(--tx3); margin-bottom: .8vh; font-weight: 700; }
+
+/* Funcionalidades */
+.pr_features { list-style: none; display: flex; flex-direction: column; gap: 2vh; flex: 1; }
+.pr_feat { display: flex; align-items: flex-start; gap: 1.2vh; font-size: 0.9rem; color: var(--tx1); line-height: 1.4; font-weight: 600; }
+.pr_feat i { color: var(--cc); font-size: var(--fz_m2); margin-top: .3vh; }
+.pr_feat.no i { color: var(--tx3); }
+.pr_feat.no span { text-decoration: line-through; color: var(--tx3); font-weight: 500; }
+
+/* Botones */
+.pr_btn {
+  margin-top: 4vh; width: 100%;
+  padding: 1.8vh; border-radius: 16px; font-size: var(--fz_m2); font-weight: 800;
+  text-align: center; text-decoration: none; cursor: pointer;
+  transition: all .3s; border: 2px solid var(--cc);
+}
+.pr_btn_outline { background: transparent; color: var(--cc); }
+.pr_btn_outline:hover { background: var(--cc); color: #fff; box-shadow: 0 8px 24px color-mix(in srgb, var(--cc) 30%, transparent); }
+.pr_btn_solid { background: var(--cc); color: #fff; box-shadow: 0 12px 32px color-mix(in srgb, var(--cc) 40%, transparent); }
+.pr_btn_solid:hover { filter: brightness(1.1); transform: translateY(-3px); box-shadow: 0 16px 40px color-mix(in srgb, var(--cc) 50%, transparent); }
+
+/* Animaciones */
+.pr_anim { opacity: 0; animation: pr_fadeUp 0.6s cubic-bezier(.4,0,.2,1) forwards var(--d, 0s); }
+@keyframes pr_fadeUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
+
+/* SECCIÓN COMPROMISO / VENTAS */
+.pr_trust_sec { margin-top: 3vh; border-top: 1px dashed var(--brd); padding-top: 5vh; }
+.pr_trust_head { text-align: center; margin-bottom: 6vh; max-width: 800px; margin-left: auto; margin-right: auto; }
+.pr_trust_head h2 { font-size: clamp(2rem, 4vw, 3rem); font-weight: 900; color: var(--tx); margin-bottom: 2vh; }
+.pr_trust_head h2 span { color: var(--mco); }
+.pr_trust_head p { font-size: var(--fz_m3); color: var(--tx2); line-height: 1.6; }
+
+.pr_trust_grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4vw; }
+.pr_trust_card { background: var(--wb); padding: 5vh 3vw; border-radius: 24px; text-align: center; border: 1px solid var(--brd); box-shadow: 0 12px 32px rgba(0,0,0,.04); transition: transform .3s, box-shadow .3s, border-color .3s; }
+.pr_trust_card:hover { transform: translateY(-5px); box-shadow: 0 16px 40px rgba(0,0,0,.08); border-color: var(--mco); }
+.pr_trust_card i { font-size: 2.8rem; color: var(--mco); margin-bottom: 2vh; }
+.pr_trust_card h3 { font-size: var(--fz_m4); font-weight: 800; color: var(--tx1); margin-bottom: 1.5vh; }
+.pr_trust_card p { font-size: var(--fz_m1); color: var(--tx2); line-height: 1.6; }
+
+/* Responsivo */
+@media (max-width: 1400px) {
+  .pr_grid { grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+}
+
+@media (max-width: 1024px) {
+  .pr_card.destacado { transform: none; }
+  .pr_card.destacado:hover { transform: translateY(-8px); }
+  .pr_trust_grid { grid-template-columns: 1fr; gap: 3vh; }
+}
+
+@media (max-width: 768px) {
+  .pr_grid { grid-template-columns: 1fr; }
+  .pr_card { max-width: 100%; width: 100%; }
+}

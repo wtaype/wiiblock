@@ -1,0 +1,434 @@
+/* ==========================================================================
+   AVISAR.CSS - GitHub-Style Issue & Feedback Tracker Premium CSS
+   ========================================================================== */
+
+.smw_avisar_view {
+  width: 100%;
+  padding: 2vh 0;
+  display: flex;
+  flex-direction: column;
+  gap: 3vh;
+  animation: smw_avisar_fade 0.5s cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+
+@keyframes smw_avisar_fade {
+  from { opacity: 0; transform: translateY(15px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ── HEADER ── */
+.smw_avisar_header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 3vh;
+  background: var(--wb);
+  border: 1px solid var(--brd);
+  border-radius: 2.5vh;
+  padding: 3vh 4vw;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 10px 35px rgba(0,0,0,0.02);
+}
+
+.smw_avisar_header::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--Mora, #7000FF), var(--mco));
+  z-index: 10;
+  transition: all 0.3s ease;
+}
+
+.smw_avisar_header.smw_loading::before {
+  background: linear-gradient(90deg, var(--Mora, #7000FF) 0%, var(--mco) 50%, var(--Mora, #7000FF) 100%);
+  background-size: 200% 100%;
+  animation: smw_loader_bar 1.5s infinite linear;
+  z-index: 100;
+}
+
+.smw_mora_glow {
+  color: var(--Mora, #7000FF);
+  filter: drop-shadow(0 0 10px color-mix(in srgb, var(--Mora, #7000FF) 40%, transparent));
+}
+
+.smw_avisar_title_row h1 {
+  font-size: var(--fz_l1);
+  font-weight: 800;
+  color: var(--tx);
+  letter-spacing: -1px;
+}
+.smw_avisar_subtitle {
+  font-size: var(--fz_s2);
+  color: var(--tx3);
+  font-weight: 600;
+  margin-top: 0.5vh;
+}
+
+.smw_avisar_controls {
+  display: flex;
+  align-items: center;
+  gap: 2vh;
+}
+
+/* Sync Button */
+.smw_sync_btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 1vh;
+  background: var(--wb);
+  border: 1px solid var(--brd);
+  color: var(--tx);
+  padding: 1.5vh 2.5vh;
+  border-radius: 50px;
+  font-weight: 700;
+  font-size: var(--fz_s2);
+  cursor: pointer;
+  transition: all 0.3s;
+}
+.smw_sync_btn:hover {
+  border-color: var(--tx3);
+  background: var(--bg5);
+}
+
+.smw_back_btn {
+  display: flex;
+  align-items: center;
+  gap: 1.5vh;
+  padding: 1.5vh 2.5vh;
+  background: var(--wb);
+  border: 1px solid var(--brd);
+  border-radius: 50px;
+  color: var(--tx);
+  text-decoration: none;
+  font-weight: 700;
+  font-size: var(--fz_s2);
+  transition: all 0.3s;
+}
+.smw_back_btn:hover {
+  border-color: var(--tx);
+  transform: translateX(-4px);
+}
+
+/* ── GRID DE DOS COLUMNAS ── */
+.smw_avisar_grid {
+  display: grid;
+  grid-template-columns: 1.2fr 1.8fr;
+  gap: 3vh;
+}
+
+/* Tarjeta Formulario y Lista */
+.smw_feedback_form_card, .smw_issues_feed_card {
+  background: var(--wb);
+  border: 1px solid var(--brd);
+  border-radius: 2.2vh;
+  padding: 3.5vh;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.02);
+}
+
+.smw_fcard_header {
+  border-bottom: 1px solid var(--brd);
+  padding-bottom: 2vh;
+  margin-bottom: 3vh;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1.5vh;
+}
+.smw_fcard_header h2 {
+  font-size: var(--fz_m2);
+  font-weight: 850;
+  color: var(--tx);
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 1.2vh;
+}
+.smw_fcard_header h2 i {
+  color: var(--mco);
+}
+.smw_fcard_desc {
+  font-size: var(--fz_s2);
+  color: var(--tx3);
+  margin: 0;
+}
+
+/* Form Layout */
+.smw_form_layout {
+  display: flex;
+  flex-direction: column;
+  gap: 3vh;
+}
+
+.smw_form_group {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2vh;
+}
+.smw_form_group label {
+  font-size: var(--fz_s2);
+  color: var(--tx3);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.smw_textarea {
+  width: 100%;
+  padding: 2vh;
+  background: var(--bg5);
+  border: 1px solid var(--brd);
+  border-radius: 1.5vh;
+  color: var(--tx);
+  font-weight: 600;
+  outline: none;
+  font-family: inherit;
+  font-size: var(--fz_s2);
+  transition: all 0.3s;
+  resize: vertical;
+}
+.smw_textarea:focus {
+  border-color: var(--Mora, #7000FF);
+  background: var(--wb);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--Mora, #7000FF) 15%, transparent);
+}
+
+/* Category Tag Buttons Selector */
+.smw_category_selector {
+  display: flex;
+  gap: 1.5vh;
+}
+.smw_cat_tag_btn {
+  flex: 1;
+  padding: 1.5vh;
+  background: var(--bg5);
+  border: 1px solid var(--brd);
+  border-radius: 1.2vh;
+  font-weight: 700;
+  font-size: var(--fz_s2);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  color: var(--tx2);
+}
+.smw_cat_tag_btn:hover:not(.active) {
+  border-color: var(--tx3);
+  color: var(--tx);
+}
+.smw_cat_tag_btn.active {
+  background: color-mix(in srgb, var(--c-accent) 10%, var(--wb));
+  border-color: var(--c-accent);
+  color: var(--c-accent);
+  box-shadow: 0 4px 12px color-mix(in srgb, var(--c-accent) 15%, transparent);
+}
+
+/* Submit Button */
+.smw_submit_fb_btn {
+  height: 6.5vh;
+  background: var(--Mora, #7000FF);
+  color: #fff;
+  border: none;
+  border-radius: 1.5vh;
+  font-weight: 800;
+  font-size: var(--fz_m2);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5vh;
+  transition: all 0.3s;
+  box-shadow: 0 8px 24px color-mix(in srgb, var(--Mora, #7000FF) 25%, transparent);
+}
+.smw_submit_fb_btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px color-mix(in srgb, var(--Mora, #7000FF) 40%, transparent);
+}
+.smw_submit_fb_btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* --- FEED DE ISSUES CARD --- */
+.smw_badge_count {
+  font-size: var(--fz_s1);
+  background: var(--bg5);
+  border: 1px solid var(--brd);
+  color: var(--tx3);
+  padding: 0.6vh 1.6vh;
+  border-radius: 50px;
+  font-weight: 700;
+}
+
+.smw_issues_list {
+  display: flex;
+  flex-direction: column;
+  gap: 2vh;
+}
+
+/* Fila/Tarjeta de Issue Individual */
+.smw_issue_card {
+  background: var(--bg5);
+  border: 1px solid var(--brd);
+  border-radius: 1.8vh;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+.smw_issue_card:hover {
+  border-color: var(--tx3);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.02);
+}
+
+.smw_issue_summary {
+  padding: 2.2vh 3vh;
+  cursor: pointer;
+}
+
+.smw_issue_title_row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 2vh;
+  margin-bottom: 1.2vh;
+}
+.smw_issue_title {
+  font-size: var(--fz_m2);
+  font-weight: 800;
+  color: var(--tx);
+  line-height: 1.3;
+  margin: 0;
+  flex: 1;
+}
+
+.smw_issue_badges {
+  display: flex;
+  gap: 1vh;
+  align-items: center;
+}
+
+/* Badges Estado GitHub-style */
+.smw_badge_status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6vh;
+  padding: 0.4vh 1.2vh;
+  border-radius: 50px;
+  font-size: 11px;
+  font-weight: 800;
+}
+.smw_badge_status.abierto {
+  background: color-mix(in srgb, var(--Paz, #29C72E) 12%, transparent);
+  color: var(--Paz, #29C72E);
+}
+.smw_badge_status.en_progreso {
+  background: color-mix(in srgb, var(--Cielo, #0EBEFF) 12%, transparent);
+  color: var(--Cielo, #0EBEFF);
+}
+.smw_badge_status.cerrado {
+  background: color-mix(in srgb, var(--Mora, #7000FF) 12%, transparent);
+  color: var(--Mora, #7000FF);
+}
+
+/* Badges Categoría */
+.smw_badge_cat {
+  display: inline-block;
+  padding: 0.4vh 1.2vh;
+  border-radius: 4px;
+  font-size: 10px;
+  font-weight: 800;
+  border: 1px solid var(--brd);
+}
+.smw_badge_cat.bug {
+  background: color-mix(in srgb, var(--Dulce) 8%, transparent);
+  color: var(--Dulce);
+  border-color: color-mix(in srgb, var(--Dulce) 15%, transparent);
+}
+.smw_badge_cat.sugerencia {
+  background: color-mix(in srgb, var(--Oro) 8%, transparent);
+  color: #c99e00;
+  border-color: color-mix(in srgb, var(--Oro) 15%, transparent);
+}
+.smw_badge_cat.felicitacion {
+  background: color-mix(in srgb, var(--Paz) 8%, transparent);
+  color: var(--Paz);
+  border-color: color-mix(in srgb, var(--Paz) 15%, transparent);
+}
+
+/* Meta info */
+.smw_issue_meta {
+  display: flex;
+  align-items: center;
+  font-size: var(--fz_s1);
+  color: var(--tx3);
+  font-weight: 600;
+  gap: 1.5vh;
+  position: relative;
+}
+.smw_issue_meta i {
+  color: var(--mco);
+}
+.smw_meta_dot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--brd);
+}
+.smw_issue_arrow {
+  margin-left: auto;
+  font-size: var(--fz_s1);
+  color: var(--tx3);
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Expanded state details slider */
+.smw_issue_details {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  background: var(--wb);
+  border-top: 0 solid var(--brd);
+}
+
+.smw_issue_desc_wrap {
+  padding: 2.5vh 3vh;
+}
+.smw_issue_desc_wrap p {
+  margin: 0;
+  font-size: var(--fz_s2);
+  color: var(--tx2);
+  line-height: 1.5;
+  font-weight: 500;
+}
+
+/* Expanded class modifications */
+.smw_issue_card.expanded {
+  border-color: var(--tx3);
+}
+.smw_issue_card.expanded .smw_issue_arrow {
+  transform: rotate(180deg);
+}
+.smw_issue_card.expanded .smw_issue_details {
+  max-height: 500px;
+  border-top-width: 1px;
+}
+
+/* --- RESPONSIVIDAD --- */
+@media (max-width: 1024px) {
+  .smw_avisar_grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* SKELETON ISSUES LOADING */
+.smw_sk_issue {
+  pointer-events: none;
+  background: var(--wb) !important;
+}
+.smw_sk_el {
+  display: inline-block;
+  background: linear-gradient(90deg, var(--bg3) 25%, var(--bg5) 50%, var(--bg3) 75%);
+  background-size: 200% 100%;
+  animation: smw_shimmer 1.4s infinite linear;
+  vertical-align: middle;
+}

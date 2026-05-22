@@ -1,0 +1,75 @@
+name: 🚀 Deploy retodelmes
+
+on:
+  push:
+    branches: [main]
+    tags: ['v*']
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    env:
+      IS_TAG: ${{ github.ref_type == 'tag' }}
+      BASE_URL: ${{ github.ref_type == 'tag' && format('/retodelmes/{0}/', github.ref_name) || '/retodelmes/' }}
+      DEST_DIR: ${{ github.ref_type == 'tag' && github.ref_name || '.' }}
+      
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 11 # o la versión de pnpm que uses
+
+      - name: Fix PNPM Path
+        run: echo "/home/runner/setup-pnpm/node_modules/.bin/bin" >> $GITHUB_PATH
+          
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'pnpm'
+
+      - run: pnpm install --frozen-lockfile
+
+      - name: 🏗️ Build for GitHub Pages
+        run: pnpm build --base=$BASE_URL
+        env:
+          VITE_FIREBASE_API_KEY: ${{ secrets.VITE_FIREBASE_API_KEY }}
+          VITE_FIREBASE_AUTH_DOMAIN: ${{ secrets.VITE_FIREBASE_AUTH_DOMAIN }}
+          VITE_FIREBASE_PROJECT_ID: ${{ secrets.VITE_FIREBASE_PROJECT_ID }}
+          VITE_FIREBASE_STORAGE_BUCKET: ${{ secrets.VITE_FIREBASE_STORAGE_BUCKET }}
+          VITE_FIREBASE_MESSAGING_SENDER_ID: ${{ secrets.VITE_FIREBASE_MESSAGING_SENDER_ID }}
+          VITE_FIREBASE_APP_ID: ${{ secrets.VITE_FIREBASE_APP_ID }}
+
+      - name: 🐙 Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: gh-pages
+          publish_dir: ./dist
+          destination_dir: ${{ env.DEST_DIR }}
+          keep_files: true
+
+      - name: 🔥 Build & Deploy to Firebase
+        if: env.IS_TAG == 'false'
+        run: |
+          pnpm build --base=/
+          pnpm add -g firebase-tools@latest
+          firebase deploy --only hosting --project ${{ secrets.FIREBASE_PROJECT_ID }} --token "${{ secrets.FIREBASE_TOKEN }}"
+        env:
+          VITE_FIREBASE_API_KEY: ${{ secrets.VITE_FIREBASE_API_KEY }}
+          VITE_FIREBASE_AUTH_DOMAIN: ${{ secrets.VITE_FIREBASE_AUTH_DOMAIN }}
+          VITE_FIREBASE_PROJECT_ID: ${{ secrets.VITE_FIREBASE_PROJECT_ID }}
+          VITE_FIREBASE_STORAGE_BUCKET: ${{ secrets.VITE_FIREBASE_STORAGE_BUCKET }}
+          VITE_FIREBASE_MESSAGING_SENDER_ID: ${{ secrets.VITE_FIREBASE_MESSAGING_SENDER_ID }}
+          VITE_FIREBASE_APP_ID: ${{ secrets.VITE_FIREBASE_APP_ID }}
+
+      - run: |
+          echo "✅ Deploy completado!"
+          echo "🔥 Firebase: https://retodelmes.web.app (solo main)"
+          echo "🐙 GitHub: https://wtaype.me/retodelmes/${{ env.DEST_DIR }}"

@@ -1,0 +1,299 @@
+/* =========================================================================
+   CHATWIL.CSS — WiiHope AI Assistant (Premium Redesign)
+   ========================================================================= */
+
+.wi_fadeUp {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.8s cubic-bezier(0.2, 0.8, 0.2, 1), transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.wi_fadeUp.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.miia {
+  height: 94vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg);
+  font-family: var(--ff_O);
+  position: relative;
+  overflow: hidden;
+}
+
+/* ========== MESSAGES AREA ========== */
+.miia_messages_wrap {
+  flex: 1;
+  overflow-y: auto;
+  scroll-behavior: smooth;
+  padding: 2vh 0;
+  scrollbar-width: thin;
+}
+
+.miia_messages {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 4vw;
+  display: flex;
+  flex-direction: column;
+  gap: 3vh;
+}
+
+/* Welcome State */
+.miia_empty {
+  text-align: center;
+  padding: 10vh 0;
+}
+
+.miia_welcome_icon {
+  position: relative;
+  width: 12vh;
+  height: 12vh;
+  margin: 0 auto 3vh;
+}
+
+.miia_avatar_img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  position: relative;
+  z-index: 2;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+
+.miia_icon_ring {
+  position: absolute;
+  top: -8px; left: -8px; right: -8px; bottom: -8px;
+  border: 3px solid var(--mco);
+  border-radius: 50%;
+  opacity: 0.4;
+  z-index: 1;
+  filter: drop-shadow(0 0 10px var(--mco));
+}
+
+.miia_welcome_title {
+  font-size: var(--fz_x2);
+  font-weight: 800;
+  color: var(--tx);
+  letter-spacing: -1px;
+}
+
+.miia_welcome_text {
+  font-size: var(--fz_m2);
+  color: var(--tx2);
+  max-width: 400px;
+  margin: 1.5vh auto 4vh;
+  line-height: 1.5;
+}
+
+/* Suggestions */
+.miia_suggestions {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1.5vh;
+  margin-top: 4vh;
+}
+
+.suggestion_card {
+  background: var(--wb);
+  border: 1px solid var(--brd);
+  padding: 2vh;
+  border-radius: 2vh;
+  cursor: pointer;
+  transition: 0.3s;
+  display: flex;
+  align-items: center;
+  gap: 1.5vh;
+}
+
+.suggestion_card:hover {
+  transform: translateY(-5px);
+  border-color: var(--mco);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.03);
+}
+
+.suggestion_card i { color: var(--mco); font-size: var(--fz_m2); }
+.suggestion_card span { font-size: var(--fz_s2); font-weight: 700; color: var(--tx); text-align: left; }
+
+/* ========== MESSAGE BUBBLES ========== */
+@keyframes miia_fall {
+  from { opacity: 0; transform: translateY(15px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.miia_message {
+  display: flex;
+  gap: 2vh;
+  max-width: 85%;
+  animation: miia_fall 0.4s ease-out both;
+}
+
+.miia_message.user {
+  flex-direction: row-reverse;
+  align-self: flex-end;
+}
+
+.message_avatar {
+  width: 4.5vh;
+  height: 4.5vh;
+  min-width: 4.5vh;
+  border-radius: 50%;
+  overflow: hidden;
+  background: var(--bg5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.message_avatar i { font-size: var(--fz_m4); color: var(--tx3); }
+
+.message_content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8vh;
+}
+
+.message_header {
+  display: flex;
+  gap: 1.5vh;
+  align-items: center;
+  padding: 0 1vh;
+}
+
+.message_name { font-size: var(--fz_s1); font-weight: 800; color: var(--tx); text-transform: uppercase; letter-spacing: 0.5px; }
+.message_time { font-size: var(--fz_s3); color: var(--tx3); font-weight: 500; }
+
+.message_text {
+  background: var(--wb);
+  border: 1px solid var(--brd);
+  padding: 1.8vh 2.5vh;
+  border-radius: 2.2vh;
+  font-size: var(--fz_m2);
+  line-height: 1.6;
+  color: var(--tx);
+  box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+}
+
+.miia_message.ai .message_text { border-top-left-radius: 0.5vh; }
+.miia_message.user .message_text { 
+  background: var(--success); 
+  color: white; 
+  border: none; 
+  border-top-right-radius: 0.5vh; 
+}
+.miia_message.user .message_header { flex-direction: row-reverse; }
+
+/* Typing Dots */
+.typing_dots { display: flex; gap: 4px; padding: 5px 0; }
+.typing_dots span { width: 6px; height: 6px; background: var(--tx3); border-radius: 50%; animation: dots 1.4s infinite; }
+.typing_dots span:nth-child(2) { animation-delay: 0.2s; }
+.typing_dots span:nth-child(3) { animation-delay: 0.4s; }
+@keyframes dots { 0%, 100% { transform: translateY(0); opacity: 0.3; } 50% { transform: translateY(-4px); opacity: 1; } }
+
+/* Contextual Suggestions */
+.miia_contextual_suggestions {
+  margin-top: 1vh;
+  padding: 0 6vh;
+  animation: miia_fall 0.5s ease-out both;
+}
+.suggestions_title { font-size: var(--fz_s1); font-weight: 700; color: var(--tx3); margin-bottom: 1.5vh; }
+.suggestions_grid { display: flex; flex-wrap: wrap; gap: 1vh; }
+
+.suggestion_card_small {
+  background: var(--bg5);
+  border: 1px solid var(--brd);
+  padding: 1vh 2vh;
+  border-radius: 50px;
+  font-size: var(--fz_s2);
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 1vh;
+  transition: 0.2s;
+}
+.suggestion_card_small:hover { background: var(--wb); border-color: var(--mco); color: var(--mco); }
+
+/* ========== INPUT AREA ========== */
+.miia_input_area {
+  padding: 2vh 4vw 4vh;
+  background: linear-gradient(0deg, var(--bg) 60%, transparent);
+}
+
+.miia_input_container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.miia_input_wrapper {
+  background: var(--wb);
+  border: 1px solid var(--brd);
+  border-radius: 2.5vh;
+  padding: 1.2vh 1.2vh 1.2vh 2.5vh;
+  display: flex;
+  align-items: flex-end;
+  gap: 1.5vh;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.05);
+  transition: 0.3s;
+}
+
+.miia_input_wrapper:focus-within {
+  border-color: var(--mco);
+  box-shadow: 0 15px 40px color-mix(in srgb, var(--mco) 10%, transparent);
+}
+
+.miia_input {
+  flex: 1;
+  background: none;
+  border: none;
+  outline: none;
+  padding: 1.2vh 0;
+  font-size: var(--fz_m2);
+  font-family: var(--ff_O);
+  color: var(--tx);
+  resize: none;
+  max-height: 150px;
+}
+
+.miia_send {
+  width: 6vh;
+  height: 6vh;
+  background: var(--tx);
+  color: white;
+  border: none;
+  border-radius: 2vh;
+  cursor: pointer;
+  transition: 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--fz_m3);
+}
+
+.miia_send.active { background: var(--mco); }
+.miia_send:hover { transform: scale(1.05); }
+.miia_send:active { transform: scale(0.95); }
+
+.miia_input_info {
+  text-align: center;
+  margin-top: 1.5vh;
+  font-size: var(--fz_s3);
+  color: var(--tx3);
+  font-weight: 500;
+}
+.miia_input_info a { color: var(--mco); text-decoration: none; font-weight: 700; }
+
+/* ========== RESPONSIVE ========== */
+@media (max-width: 768px) {
+  .miia { height: 90vh; }
+  .miia_messages { padding: 0 5vw; }
+  .miia_message { max-width: 95%; }
+  .miia_empty { padding: 5vh 0; }
+  .miia_welcome_title { font-size: var(--fz_l1); }
+  .miia_suggestions { grid-template-columns: 1fr; }
+  .miia_input_area { padding: 1.5vh 4vw 3vh; }
+  .miia_input_wrapper { border-radius: 2vh; padding: 1vh 1vh 1vh 2vh; }
+  .miia_send { width: 5.5vh; height: 5.5vh; border-radius: 1.5vh; }
+}

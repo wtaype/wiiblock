@@ -1,0 +1,160 @@
+/* ══ LAYOUT MÉTRICAS ═══════════════════════════════════════════════════ */
+.me_layout {
+  padding: 5vh 4vw;
+  width: 100%;
+  min-height: calc(100vh - 60px);
+  background: var(--bg);
+  box-sizing: border-box;
+}
+
+.me_header {
+  margin-bottom: 5vh;
+}
+
+.me_title {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: var(--tx1);
+  margin-bottom: 0.5vh;
+}
+
+.me_subtitle {
+  font-size: 0.95rem;
+  color: var(--tx3);
+  font-weight: 500;
+}
+
+/* ── Tarjetas Superiores (Stats) ── */
+.me_stats_grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 3vh;
+  margin-bottom: 5vh;
+}
+
+.me_stat_card {
+  background: var(--wb);
+  border: 1px solid var(--brd);
+  border-radius: 16px;
+  padding: 3.5vh 3vh;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5vh;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.me_stat_card:hover { transform: translateY(-4px); box-shadow: 0 12px 24px rgba(0,0,0,0.04); }
+
+.me_stat_label {
+  font-size: 0.82rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  color: var(--tx2);
+  display: flex; align-items: center; gap: 1vh;
+}
+
+.me_stat_val {
+  font-size: 2.8rem;
+  font-weight: 900;
+  color: var(--tx1);
+  line-height: 1;
+}
+
+/* ── Tabla de Proyectos ── */
+.me_table_card {
+  background: var(--wb);
+  border: 1px solid var(--brd);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+}
+
+.me_table_header {
+  padding: 3vh 3.5vh;
+  border-bottom: 1px solid var(--brd);
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--tx1);
+  display: flex; align-items: center; gap: 1.2vh;
+}
+
+.me_table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.me_table th {
+  text-align: left;
+  padding: 2vh 3.5vh;
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  color: var(--tx3);
+  border-bottom: 1px solid var(--brd);
+  background: var(--bg);
+}
+
+.me_table td {
+  padding: 2.5vh 3.5vh;
+  border-bottom: 1px solid var(--brd);
+  color: var(--tx1);
+  font-size: 0.95rem;
+  vertical-align: middle;
+}
+
+.me_table tr:last-child td { border-bottom: none; }
+.me_table tbody tr { transition: background 0.15s; }
+.me_table tbody tr:hover { background: var(--bg); }
+
+.me_slug_cell {
+  display: flex;
+  align-items: center;
+  gap: 1.5vh;
+  font-weight: 700;
+}
+.me_slug_avatar { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; border: 1px solid var(--brd); }
+
+.me_badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6vh;
+  padding: 0.6vh 1.2vh;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  background: var(--bg);
+  border: 1px solid var(--brd);
+  color: var(--tx1);
+}
+
+.me_action_btn {
+  padding: 0.9vh 1.8vh;
+  border-radius: 8px;
+  background: var(--tx1);
+  color: var(--wb);
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: 600;
+  transition: 0.15s;
+  display: inline-flex; align-items: center; gap: 0.8vh;
+}
+.me_action_btn:hover { opacity: 0.85; transform: scale(1.02); }
+
+.me_action_btn.sec {
+  background: transparent;
+  color: var(--tx2);
+  border: 1px solid var(--brd);
+}
+.me_action_btn.sec:hover { background: var(--bg); color: var(--tx1); }
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .me_table, .me_table tbody, .me_table tr, .me_table td { display: block; width: 100%; box-sizing: border-box; }
+  .me_table thead { display: none; }
+  .me_table td { text-align: right; padding-left: 50%; position: relative; }
+  .me_table td::before { content: attr(data-label); position: absolute; left: 3vh; text-align: left; font-weight: 700; color: var(--tx3); text-transform: uppercase; font-size: 0.75rem; top: 50%; transform: translateY(-50%); }
+  .me_slug_cell { justify-content: flex-end; }
+  .me_layout { padding: 3vh 5vw; }
+}

@@ -1,0 +1,695 @@
+/* ═══════════════════════════════════════════════════════════
+   precios.css — Gestión de Precios / listatours
+   Reto del Mes · Gestor Module
+   ═══════════════════════════════════════════════════════════ */
+
+/* ── Skeleton shimmer (shared pattern) ──────────────────────── */
+@keyframes prec_shimmer {
+  0%   { background-position: -600px 0; }
+  100% { background-position: 600px 0; }
+}
+
+.smw_sk_el {
+  background: linear-gradient(
+    90deg,
+    var(--bg5, #f1f5f9) 25%,
+    color-mix(in srgb, var(--brd, #e2e8f0) 60%, white) 50%,
+    var(--bg5, #f1f5f9) 75%
+  );
+  background-size: 1200px 100%;
+  animation: prec_shimmer 1.4s linear infinite;
+  display: block;
+}
+
+/* ── Container ──────────────────────────────────────────────── */
+.prec_wrap {
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 2rem 1.25rem 4rem;
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 0.35s ease, transform 0.35s ease;
+}
+
+.prec_wrap.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── Header Card ─────────────────────────────────────────────── */
+.prec_header {
+  position: relative;
+  background: var(--wb, #fff);
+  border: 1px solid var(--brd, #e2e8f0);
+  border-radius: 2.5vh;
+  padding: 1.75rem 2rem 1.5rem;
+  margin-bottom: 1.75rem;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+}
+
+/* Gradient stripe on top */
+.prec_header::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 4px;
+  background: linear-gradient(135deg, var(--Paz, #22c55e) 0%, var(--mco, #f59e0b) 100%);
+  border-radius: 2.5vh 2.5vh 0 0;
+  transition: height 0.3s ease;
+}
+
+/* Loader animation on header */
+.prec_header.smw_loading::before {
+  height: 3px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--Paz, #22c55e) 40%,
+    var(--mco, #f59e0b) 60%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
+  animation: prec_loader 1.2s linear infinite;
+}
+
+@keyframes prec_loader {
+  from { background-position: 200% 0; }
+  to   { background-position: -200% 0; }
+}
+
+.prec_header_inner {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.5rem;
+}
+
+.prec_header_text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.prec_title {
+  font-family: var(--ff_O, sans-serif);
+  font-size: var(--fz_l1, 1.75rem);
+  font-weight: 700;
+  color: var(--tx, #111);
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.prec_title i {
+  color: var(--Paz, #22c55e);
+}
+
+.prec_subtitle {
+  font-size: var(--fz_s2, 0.85rem);
+  color: var(--tx3, #888);
+  margin: 0;
+}
+
+/* ── Header actions row ──────────────────────────────────────── */
+.prec_header_actions {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  flex-shrink: 0;
+}
+
+/* ── Refresh button ──────────────────────────────────────────── */
+.prec_refresh_btn {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: 2px solid var(--brd, #e2e8f0);
+  background: var(--bg, #fff);
+  color: var(--tx2, #555);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  transition: background 0.2s, color 0.2s, border-color 0.2s, transform 0.2s;
+  flex-shrink: 0;
+}
+
+.prec_refresh_btn:hover {
+  background: var(--Paz, #22c55e);
+  color: #fff;
+  border-color: var(--Paz, #22c55e);
+  transform: rotate(30deg);
+}
+
+.prec_refresh_btn.prec_spinning i {
+  animation: prec_spin 0.8s linear infinite;
+}
+
+@keyframes prec_spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ── New Tour button ─────────────────────────────────────────── */
+.prec_btn_new {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.6em 1.25em;
+  border-radius: 0.75rem;
+  border: none;
+  background: linear-gradient(135deg, var(--Paz, #22c55e) 0%, #16a34a 100%);
+  color: #fff;
+  font-size: var(--fz_s2, 0.85rem);
+  font-weight: 700;
+  font-family: var(--ff_P, sans-serif);
+  cursor: pointer;
+  transition: opacity 0.2s, transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 2px 10px rgba(34, 197, 94, 0.35);
+  white-space: nowrap;
+  letter-spacing: 0.02em;
+}
+
+.prec_btn_new:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(34, 197, 94, 0.45);
+}
+
+.prec_btn_new:active {
+  transform: translateY(0);
+}
+
+/* ── Stats bar ───────────────────────────────────────────────── */
+.prec_stats_bar {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.prec_stat_chip {
+  flex: 1 1 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.2rem;
+  padding: 0.9rem 1.25rem;
+  border-radius: 1rem;
+  background: var(--bg5, #f8fafc);
+  border: 1.5px solid var(--brd, #e2e8f0);
+  transition: transform 0.2s, box-shadow 0.2s;
+  cursor: default;
+}
+
+.prec_stat_chip:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.07);
+}
+
+.prec_stat_num {
+  font-family: var(--ff_O, sans-serif);
+  font-size: var(--fz_l2, 2rem);
+  font-weight: 800;
+  line-height: 1;
+}
+
+.prec_stat_label {
+  font-size: var(--fz_s1, 0.72rem);
+  color: var(--tx3, #888);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-weight: 600;
+}
+
+.prec_stat_total    .prec_stat_num { color: var(--tx, #111); }
+.prec_stat_activos  .prec_stat_num { color: var(--Paz, #22c55e); }
+.prec_stat_inactivos .prec_stat_num { color: #ef4444; }
+
+/* ── Table card ──────────────────────────────────────────────── */
+.prec_table_card {
+  background: var(--wb, #fff);
+  border: 1px solid var(--brd, #e2e8f0);
+  border-radius: 2.5vh;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+}
+
+.prec_table_title_bar {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.85rem 1.5rem;
+  background: linear-gradient(135deg, var(--Paz, #22c55e) 0%, var(--mco, #f59e0b) 100%);
+  color: #fff;
+  font-family: var(--ff_O, sans-serif);
+  font-size: var(--fz_s2, 0.85rem);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.prec_table_scroll {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* ── Table ───────────────────────────────────────────────────── */
+.prec_table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 900px;
+}
+
+/* ── Table header ────────────────────────────────────────────── */
+.prec_th {
+  padding: 0.8rem 1rem;
+  text-align: left;
+  font-size: var(--fz_s1, 0.7rem);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--tx3, #aaa);
+  background: var(--bg5, #f8fafc);
+  border-bottom: 1.5px solid var(--brd, #e2e8f0);
+  white-space: nowrap;
+  user-select: none;
+}
+
+.prec_th_actions {
+  text-align: center;
+}
+
+/* ── Table rows ──────────────────────────────────────────────── */
+.prec_table tbody tr {
+  border-bottom: 1px solid var(--brd, #e2e8f0);
+  transition: background 0.18s;
+  position: relative;
+}
+
+.prec_table tbody tr:last-child {
+  border-bottom: none;
+}
+
+.prec_table tbody tr:hover {
+  background: color-mix(in srgb, var(--Paz, #22c55e) 4%, var(--wb, #fff));
+}
+
+.prec_td {
+  padding: 0.6rem 0.75rem;
+  font-size: var(--fz_m1, 0.93rem);
+  color: var(--tx, #111);
+  vertical-align: middle;
+}
+
+.prec_td_num {
+  width: 64px;
+}
+
+.prec_td_tour {
+  min-width: 160px;
+}
+
+.prec_td_toggle {
+  text-align: center;
+}
+
+.prec_td_actions {
+  text-align: center;
+  white-space: nowrap;
+}
+
+/* ── Dirty row ───────────────────────────────────────────────── */
+.prec_row_dirty {
+  border-left: 3px solid var(--Paz, #22c55e) !important;
+  background: color-mix(in srgb, var(--Paz, #22c55e) 5%, var(--wb, #fff)) !important;
+}
+
+.prec_row_dirty::after {
+  content: '';
+  position: absolute;
+  top: 8px; right: 8px;
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: var(--Paz, #22c55e);
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--Paz, #22c55e) 25%, transparent);
+}
+
+/* ── New row ─────────────────────────────────────────────────── */
+.prec_row_new {
+  border-left: 3px solid #3b82f6 !important;
+  background: color-mix(in srgb, #3b82f6 5%, var(--wb, #fff)) !important;
+  animation: prec_slide_in 0.25s ease;
+}
+
+@keyframes prec_slide_in {
+  from { opacity: 0; transform: translateY(-8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Flash animations ────────────────────────────────────────── */
+.prec_row_flash_ok {
+  animation: prec_flash_ok 0.85s ease forwards;
+}
+
+.prec_row_flash_err {
+  animation: prec_flash_err 0.85s ease forwards;
+}
+
+@keyframes prec_flash_ok {
+  0%, 100% { background: inherit; }
+  40%      { background: color-mix(in srgb, #22c55e 18%, var(--wb, #fff)); }
+}
+
+@keyframes prec_flash_err {
+  0%, 100% { background: inherit; }
+  40%      { background: color-mix(in srgb, #ef4444 14%, var(--wb, #fff)); }
+}
+
+/* ── Removing animation ──────────────────────────────────────── */
+.prec_row_removing {
+  animation: prec_removing 0.35s ease forwards;
+}
+
+@keyframes prec_removing {
+  to { opacity: 0; transform: translateX(-8px); }
+}
+
+/* ── Inline inputs ───────────────────────────────────────────── */
+.prec_td_input {
+  width: 100%;
+  padding: 0.35em 0.5em;
+  border: 1.5px solid transparent;
+  border-radius: 0.5rem;
+  background: transparent;
+  color: var(--tx, #111);
+  font-size: inherit;
+  font-family: var(--ff_P, sans-serif);
+  transition: border-color 0.18s, background 0.18s, box-shadow 0.18s;
+  outline: none;
+  min-width: 48px;
+  box-sizing: border-box;
+}
+
+.prec_td_input::placeholder {
+  color: var(--tx3, #bbb);
+}
+
+.prec_td_input:hover {
+  border-color: var(--brd, #e2e8f0);
+  background: var(--bg5, #f8fafc);
+}
+
+.prec_td_input:focus {
+  border-color: var(--Paz, #22c55e);
+  background: var(--wb, #fff);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--Paz, #22c55e) 18%, transparent);
+}
+
+/* Number input widths */
+.prec_in_num   { max-width: 56px; text-align: right; }
+.prec_in_price { max-width: 80px; text-align: right; }
+.prec_in_pts   { max-width: 64px; text-align: right; }
+.prec_in_com   { max-width: 60px; text-align: right; }
+.prec_in_tour  { max-width: 100%; min-width: 130px; }
+
+/* Remove number input arrows for cleaner look */
+.prec_td_input[type="number"]::-webkit-inner-spin-button,
+.prec_td_input[type="number"]::-webkit-outer-spin-button {
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.prec_td_input[type="number"]:hover::-webkit-inner-spin-button,
+.prec_td_input[type="number"]:focus::-webkit-inner-spin-button {
+  opacity: 1;
+}
+
+/* ── Price / pct wrappers ────────────────────────────────────── */
+.prec_price_wrap,
+.prec_pct_wrap {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.2rem;
+}
+
+.prec_currency,
+.prec_pct_sign {
+  font-size: var(--fz_s1, 0.72rem);
+  font-weight: 700;
+  color: var(--tx3, #aaa);
+  flex-shrink: 0;
+  user-select: none;
+}
+
+/* ── CSS Toggle switch ───────────────────────────────────────── */
+.prec_toggle {
+  position: relative;
+  display: inline-block;
+  width: 44px;
+  height: 24px;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.prec_toggle input[type="checkbox"] {
+  opacity: 0;
+  width: 0;
+  height: 0;
+  position: absolute;
+}
+
+.prec_toggle_slider {
+  position: absolute;
+  inset: 0;
+  background: var(--brd, #cbd5e1);
+  border-radius: 999px;
+  transition: background 0.25s;
+}
+
+.prec_toggle_slider::before {
+  content: '';
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  left: 3px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: #fff;
+  border-radius: 50%;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.22);
+  transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.prec_toggle input[type="checkbox"]:checked + .prec_toggle_slider {
+  background: var(--Paz, #22c55e);
+}
+
+.prec_toggle input[type="checkbox"]:checked + .prec_toggle_slider::before {
+  transform: translateY(-50%) translateX(20px);
+}
+
+.prec_toggle input[type="checkbox"]:focus-visible + .prec_toggle_slider {
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--Paz, #22c55e) 30%, transparent);
+}
+
+/* ── Action buttons ──────────────────────────────────────────── */
+.prec_actions_wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  flex-wrap: nowrap;
+}
+
+/* Save button base */
+.prec_btn_save {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.38em 0.85em;
+  border-radius: 0.55rem;
+  border: 1.5px solid var(--brd, #e2e8f0);
+  background: var(--bg5, #f8fafc);
+  color: var(--tx3, #aaa);
+  font-size: var(--fz_s2, 0.8rem);
+  font-weight: 700;
+  font-family: var(--ff_P, sans-serif);
+  cursor: not-allowed;
+  transition: background 0.2s, border-color 0.2s, color 0.2s, box-shadow 0.2s, transform 0.15s;
+  white-space: nowrap;
+}
+
+/* Active (dirty) save button */
+.prec_btn_save.prec_btn_save_active,
+.prec_btn_save:not([disabled]) {
+  background: linear-gradient(135deg, var(--Paz, #22c55e) 0%, #16a34a 100%);
+  border-color: var(--Paz, #22c55e);
+  color: #fff;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(34, 197, 94, 0.30);
+}
+
+.prec_btn_save.prec_btn_save_active:hover,
+.prec_btn_save:not([disabled]):hover {
+  opacity: 0.88;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(34, 197, 94, 0.40);
+}
+
+.prec_btn_save.prec_btn_save_active:active,
+.prec_btn_save:not([disabled]):active {
+  transform: translateY(0);
+}
+
+/* Delete button */
+.prec_btn_delete {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 0.55rem;
+  border: 1.5px solid rgba(239, 68, 68, 0.25);
+  background: rgba(239, 68, 68, 0.07);
+  color: #ef4444;
+  font-size: 0.82rem;
+  cursor: pointer;
+  transition: background 0.18s, border-color 0.18s, transform 0.15s, box-shadow 0.18s;
+  flex-shrink: 0;
+}
+
+.prec_btn_delete:hover {
+  background: #ef4444;
+  border-color: #ef4444;
+  color: #fff;
+  transform: translateY(-1px);
+  box-shadow: 0 3px 10px rgba(239, 68, 68, 0.35);
+}
+
+.prec_btn_delete:active {
+  transform: translateY(0);
+}
+
+/* Cancel new row button */
+.prec_btn_cancel_new {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 1.5px solid var(--brd, #e2e8f0);
+  background: var(--bg5, #f8fafc);
+  color: var(--tx3, #aaa);
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: background 0.18s, color 0.18s, border-color 0.18s;
+  flex-shrink: 0;
+}
+
+.prec_btn_cancel_new:hover {
+  background: rgba(239, 68, 68, 0.1);
+  border-color: #ef4444;
+  color: #ef4444;
+}
+
+/* ── Skeleton rows ───────────────────────────────────────────── */
+.prec_row_skeleton td {
+  padding: 0.85rem 0.75rem;
+}
+
+/* ── Loading / empty states ──────────────────────────────────── */
+.prec_loading_cell {
+  text-align: center;
+  padding: 2.5rem !important;
+}
+
+.prec_spinner {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  color: var(--tx3, #aaa);
+  font-size: var(--fz_m1, 0.95rem);
+}
+
+.prec_empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.85rem;
+  padding: 3.5rem 1rem;
+  color: var(--tx3, #aaa);
+  text-align: center;
+}
+
+.prec_empty i {
+  font-size: 2.8rem;
+  opacity: 0.3;
+}
+
+.prec_empty p {
+  margin: 0;
+  font-size: var(--fz_m1, 0.95rem);
+  line-height: 1.6;
+}
+
+.prec_empty_error i { color: #ef4444; opacity: 0.6; }
+.prec_empty_error p { color: #ef4444; }
+
+/* ── Mobile ──────────────────────────────────────────────────── */
+@media (max-width: 640px) {
+  .prec_wrap {
+    padding: 1rem 0.75rem 3rem;
+  }
+
+  .prec_title {
+    font-size: var(--fz_m4, 1.35rem);
+  }
+
+  .prec_header {
+    padding: 1.25rem 1.1rem 1.15rem;
+  }
+
+  .prec_header_inner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.85rem;
+  }
+
+  .prec_header_actions {
+    width: 100%;
+    justify-content: flex-end;
+  }
+
+  .prec_btn_new {
+    flex: 1;
+    justify-content: center;
+  }
+
+  .prec_stats_bar {
+    gap: 0.6rem;
+  }
+
+  .prec_stat_chip {
+    padding: 0.7rem 0.85rem;
+  }
+
+  .prec_stat_num {
+    font-size: var(--fz_l1, 1.6rem);
+  }
+
+  .prec_table_card {
+    border-radius: 1.5vh;
+  }
+
+  /* Narrower inputs on mobile */
+  .prec_in_num   { max-width: 44px; }
+  .prec_in_price { max-width: 62px; }
+  .prec_in_pts   { max-width: 50px; }
+  .prec_in_com   { max-width: 46px; }
+}
