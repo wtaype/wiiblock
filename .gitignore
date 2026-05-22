@@ -47,4 +47,5 @@ ehthumbs.db
 *.swp
 *.lock
 
+.agents
 skills-lock.json
