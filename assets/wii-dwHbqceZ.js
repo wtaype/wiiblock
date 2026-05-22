@@ -1,0 +1,1 @@
+var e=`wiiblock`,t=`WiiBlock`,n=`fa-shield-halved`,r=`exntesion, google, adblock, velocidad, privacidad`,i=`Extensión de privacidad y velocidad para Google Chrome. Bloquea anuncios, rastreadores y mejora tu experiencia de navegación.`,a=`https://retodelmes.web.app`,o=2026,s=`@wilder.taype`,c=`https://wtaype.github.io/`;export{e as a,c,n as i,a as l,s as n,r as o,i as r,o as s,t};

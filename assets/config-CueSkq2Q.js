@@ -1,0 +1,1 @@
+var e={GEMINI_KEY:void 0,MODEL:`gemini-3.1-flash-lite-preview`,TEMPERATURE:1,MAX_TOKENS:500};export{e as AI_CONFIG};

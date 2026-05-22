@@ -1,0 +1,1 @@
+var e=`Blogwii`,t=`Sistema de blog Profesionales`,n=2026,r=`@wilder.taype`,i=`v10`;export{e as app,r as autor,t as descri,n as lanzamiento,i as version};
